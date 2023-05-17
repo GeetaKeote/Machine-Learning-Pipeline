@@ -55,7 +55,7 @@ def evaluate_classification_model(model_list: list, X_train: np.ndarray, y_train
     It returned a named tuple
     
     MetricInfoArtifact = namedtuple("MetricInfo",
-                                ["model_name", "model_object", "train_f1", "train_f1", "train_accuracy",
+                                ["model_name", "model_object", "train_f1", "test_f1", "train_accuracy",
                                  "test_accuracy", "model_accuracy", "index_number"])
     """
     try:

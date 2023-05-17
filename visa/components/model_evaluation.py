@@ -8,6 +8,8 @@ from visa.constant import *
 from visa.utils.utils import write_yaml_file, read_yaml_file, load_object, load_data
 from visa.entity.model_factory import evaluate_classification_model
 
+# Model Evaluation
+# complete pipeline -> Data Ingestion
 class ModelEvaluation:
 
     def __init__(self, model_evaluation_config: ModelEvaluationConfig,
@@ -23,6 +25,9 @@ class ModelEvaluation:
         except Exception as e:
             raise CustomException(e, sys) from e
 
+
+# Why best Model -> Data Validation (.pkl after model training) -> best model ( accuracy )
+# Empty model trainer artifact ->
     def get_best_model(self):
         try:
             model = None
@@ -38,11 +43,15 @@ class ModelEvaluation:
 
             if BEST_MODEL_KEY not in model_eval_file_content:
                 return model
+            # less than 60 % accuracy -> model_evaluation.yaml = None
+
 
             model = load_object(file_path=model_eval_file_content[BEST_MODEL_KEY][MODEL_PATH_KEY])
             return model
         except Exception as e:
             raise CustomException(e, sys) from e
+        
+        # Update evaluation report everytime -> based upon model accuracy (70, 75) -> 
 
     def update_evaluation_report(self, model_evaluation_artifact: ModelEvaluationArtifact):
         try:
